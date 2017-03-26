@@ -102,7 +102,10 @@ catch (PDOException $e) {
 
 $contents = file_get_contents($confpath);
 if(getenv('AUTH_METHOD') == "ldap") {
-    $config['PLUGINS'] = 'auth_ldap, note, ' . env("PLUGINS", "");
+    $config['PLUGINS'] = 'auth_ldap, note';
+    if(getenv('PLUGINS')!=""){
+        $config['PLUGINS'] .= ', ' . env("PLUGINS", "");
+    }
     $contents .= "define('LDAP_AUTH_SERVER_URI', '" . env("LDAP_AUTH_SERVER_URI", "ldap://ldap") . "');\n";
     $contents .= "define('LDAP_AUTH_USETLS', " . env("LDAP_AUTH_USETLS", "FALSE") . "); \n";
     $contents .= "define('LDAP_AUTH_ALLOW_UNTRUSTED_CERT', " . env("LDAP_AUTH_ALLOW_UNTRUSTED_CERT", "TRUE") . ");\n";
