@@ -1,6 +1,8 @@
 FROM ubuntu:14.04
 MAINTAINER Christian Lück <christian@lueck.tv>
 
+COPY ubuntu_apt_sources.list /etc/apt/sources.list
+
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
   git nginx supervisor php5-fpm php5-cli php5-curl php5-gd php5-json \
   php5-pgsql php5-ldap php5-mysql php5-mcrypt && apt-get clean && rm -rf /var/lib/apt/lists/*
